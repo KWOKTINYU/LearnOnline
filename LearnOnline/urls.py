@@ -1,3 +1,4 @@
+# _*_ encoding:utf-8 _*_
 """LearnOnline URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,8 +18,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 import xadmin
+from django.views.static import serve
 
-from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView
+from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
+from organization.views import OrgView
+from LearnOnline.settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -28,6 +32,16 @@ urlpatterns = [
     url('^register/$', RegisterView.as_view(), name="register"),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name="user_active"),
-    url('^forgetpwd/$', ForgetPwdView.as_view(), name="forget_pwd"),
-    url('^reset/$', ForgetPwdView.as_view(), name="forget_pwd"),
+    url('^forget/$', ForgetPwdView.as_view(), name="forget_pwd"),
+    url('^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
+    url('^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
+
+    # 课程机构URL配置
+    url(r'^org/', include('organization.urls', namespace="org")),
+    # 课程URL配置
+    url(r'^course/', include('courses.urls', namespace="course")),
+    # 处理MEDIA信息,配置上传文件的访问处理函数
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT})
+
+
 ]
