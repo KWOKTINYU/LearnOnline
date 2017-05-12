@@ -13,7 +13,6 @@
     {% block custom_css%}{% endblock %}
     <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
-    {% block custom_js%}{% endblock %}
 </head>
 <body>
 <section class="headerwrap headerwrap2">
@@ -140,7 +139,7 @@ function add_fav(current_elem, fav_id, fav_type){
         data:{'fav_id':fav_id, 'fav_type':fav_type},
         async: true,
         beforeSend:function(xhr, settings){
-            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token   }}");
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
         },
         success: function(data) {
             if(data.status == 'fail'){
@@ -223,6 +222,6 @@ $(function() {
     });
 });
 </script>
-
+{% block custom_js%}{% endblock %}
 </body>
 </html>
