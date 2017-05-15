@@ -1,4 +1,4 @@
-var zyemail="",
+ var zyemail="",
     zyUname="",
     hash={
         'qq.com': 'http://mail.qq.com',

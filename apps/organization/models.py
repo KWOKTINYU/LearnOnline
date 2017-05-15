@@ -48,6 +48,7 @@ class CourseOrg(models.Model):
 class Teacher(models.Model):
     org = models.ForeignKey(CourseOrg, verbose_name=u"所属机构")
     name = models.CharField(max_length=50, verbose_name=u"教师名称")
+    age = models.IntegerField(default=18, verbose_name=u"年龄")
     image = models.ImageField(default='', upload_to="teacher/%Y/%m", verbose_name=u"头像", max_length=100)
     work_years = models.IntegerField(default=0, verbose_name=u"工作年数")
     work_company = models.CharField(max_length=50, verbose_name=u"就职公司名称")
@@ -63,3 +64,6 @@ class Teacher(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_course_nums(self):
+        return self.course_set.all().count()
