@@ -28,7 +28,7 @@ SECRET_KEY = 'n&t8bu(msuet91gt#armny^(1cleq%wi$!1b+2i^-rjjvs3pg_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'pure_pagination',
+    'DjangoUeditor',
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
 
@@ -153,6 +154,8 @@ EMAIL_FROM = "kwoktinyu@sina.com"
 # 上传图片
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 分页
 PAGINATION_SETTINGS = {

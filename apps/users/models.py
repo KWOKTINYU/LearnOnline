@@ -54,3 +54,6 @@ class Banner(models.Model):
     class Meta:
         verbose_name = u"首页轮播"
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name

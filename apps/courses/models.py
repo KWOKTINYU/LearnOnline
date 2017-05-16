@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 from datetime import datetime
 
+from DjangoUeditor.models import UEditorField
+
 from django.db import models
 from organization.models import CourseOrg, Teacher
 
@@ -13,7 +15,8 @@ class Course(models.Model):
     name = models.CharField(max_length=50, verbose_name=u"课程名称")
     teacher = models.ForeignKey(Teacher, verbose_name=u"讲师", null=True, blank=True)
     desc = models.CharField(max_length=300, verbose_name=u"课程描述")
-    detail = models.TextField(verbose_name=u"课程详情")
+    detail = UEditorField(verbose_name=u"课程详情", width=600, height=300, imagePath="courses/ueditor/",
+                          filePath="courses/ueditor/", default='')
     degree = models.CharField(verbose_name=u"难度", choices=(("primary", u"初级"), ("middle", u"中级"), ("senior", u"高级")), max_length=7)
     learn_times = models.IntegerField(default=0, verbose_name=u"学习时长(分钟)")
     learn_students = models.IntegerField(default=0, verbose_name=u"学习人数")
@@ -24,6 +27,7 @@ class Course(models.Model):
     tag = models.CharField(default="", max_length=10, verbose_name=u"课程标签")
     need_know = models.CharField(default="", max_length=200, verbose_name=u"课程须知")
     teacher_advise = models.CharField(default="", max_length=200, verbose_name=u"讲师建议")
+    is_banner = models.BooleanField(default=False, verbose_name=u"是否轮播")
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
 
     class Meta:
@@ -33,6 +37,12 @@ class Course(models.Model):
     def get_chapter_nums(self):
         # 获取章节数
         return self.lesson_set.all().count()
+    get_chapter_nums.short_description = "章节数"
+
+    def go_to(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='https://www.baidu.com/'>跳转</>")
+    go_to.short_description = "跳转"
 
     def get_learn_users(self):
         return self.usercourse_set.all()[:3]
@@ -43,6 +53,14 @@ class Course(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class BannerCourse(Course):
+    class Meta:
+        verbose_name = u"轮播课程"
+        verbose_name_plural = verbose_name
+        # 不会生成表，但又具有model的功能  可在admin中注册不同的数据
+        proxy = True
 
 
 class Lesson(models.Model):
