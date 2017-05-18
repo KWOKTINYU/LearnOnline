@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}课程机构列表 - LearnOnline{% endblock %}
+{% block title %}首页 - LearnOnline{% endblock %}
 
 {% load staticfiles %}
 
@@ -12,29 +12,25 @@
 
 {% block content %}
     <div class="banner">
-			<div class="wp">
-				<div class="fl">
-					<div class="imgslide">
-						<ul class="imgs">
-                            {% for banner in all_banners %}
+        <div class="wp">
+            <div class="fl">
+                <div class="imgslide">
+                    <ul class="imgs">
+                        {% for banner in all_banners %}
                             <li>
-                                    <a href="{{ banner.url }}">
-                                        <img width="1200" height="478" src="{{ MEDIA_URL }}{{ banner.image }}" />
-                                    </a>
-                                </li>
-                            {% endfor %}
-						</ul>
-					</div>
-					<div class="unslider-arrow prev"></div>
-					<div class="unslider-arrow next"></div>
-				</div>
+                                <a href="{{ banner.url }}">
+                                    <img width="1200" height="478" src="{{ MEDIA_URL }}{{ banner.image }}" />
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="unslider-arrow prev"></div>
+                <div class="unslider-arrow next"></div>
+            </div>
+        </div>
+    </div>
 
-				</div>
-
-
-			</div>
-<!--banner end-->
-<!--feature start-->
 	<section>
 		<div class="wp">
 			<ul class="feature">
@@ -57,8 +53,7 @@
 			</ul>
 		</div>
 	</section>
-<!--feature end-->
-<!--module1 start-->
+
 	<section>
 		<div class="module">
 			<div class="wp">
@@ -73,19 +68,15 @@
 						<div class="module1_2 box">
 							<div class="imgslide2">
 								<ul class="imgs">
-                                {% for banner_course in banner_courses %}
-                                    <li>
-                                        <a href="{% url 'course:course_detail' banner_course.id %}">
-                                            <img width="470" height="300" src="{{ MEDIA_URL }}{{ banner_course.image }}" />
-                                        </a>
-                                    </li>
-                                {% endfor %}
+                                    {% for banner_course in banner_courses %}
+                                        <li><a href="{% url 'course:course_detail' banner_course.id %}"><img width="470" height="300" src="{{ MEDIA_URL }}{{ banner_course.image }}" /></a></li>
+                                    {% endfor %}
 								</ul>
 							</div>
 							<div class="unslider-arrow2 prev"></div>
 							<div class="unslider-arrow2 next"></div>
 						</div>
-                            {% for course in courses %}
+                        {% for course in courses %}
                             <div class="module1_{{ forloop.counter|add:2 }} box">
                                 <a href="{% url 'course:course_detail' course.id %}">
                                     <img width="233" height="190" src="{{ MEDIA_URL }}{{ course.image }}"/>
@@ -102,13 +93,13 @@
                                     <span class="star fr">{{ course.fav_nums }}</span>
                                 </div>
                             </div>
-                            {% endfor %}
-
-					</div>
+                        {% endfor %}
+                    </div>
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<section>
 		<div class="module greybg">
 			<div class="wp">

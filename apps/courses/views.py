@@ -134,7 +134,7 @@ class CourseInfoView(LoginRequiredMixin, View):
         # 获取学习该课程的别的用户学习过的别的课程
         relate_courses = Course.objects.filter(id__in=course_ids).order_by("-click_nums")[:3]
         all_resourses = CourseResource.objects.filter(course=course)
-        return render(request, "course-video.html", {
+        return render(request, "course-info.html", {
             "course": course,
             "course_resourses": all_resourses,
             "relate_courses": relate_courses
