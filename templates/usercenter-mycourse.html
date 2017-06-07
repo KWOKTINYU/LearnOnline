@@ -22,7 +22,7 @@
 		<div class="personal_des permessage">
 			<div class="companycenter">
 				<div class="group_list brief">
-                {% for user_course in user_courses %}
+                {% for user_course in user_courses.object_list %}
                     <div class="module1_5 box">
                             <a href="{% url 'course:course_detail' user_course.course.id %}">
                                 <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ user_course.course.image }}"/>
@@ -39,7 +39,28 @@
                         </div>
                 {% endfor %}
 				</div>
-			</div>
+            <div class="pageturn">
+                <ul class="pagelist">
+                    {% if user_courses.has_previous %}
+                        <li class="long"><a href="?{{ user_courses.previous_page_number.querystring }}">上一页</a></li>
+                    {% endif %}
+                    {% for page in user_courses.pages %}
+                        {% if page %}
+                            {% ifequal page user_courses.number %}
+                                <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% else %}
+                                <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                            {% endifequal %}
+                        {% else %}
+                            <li class="none"><a href="">...</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if user_courses.has_next %}
+                        <li class="long"><a href="?{{ user_courses.next_page_number.querystring }}">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            </div>
 		</div>
 	</div>
 {% endblock %}

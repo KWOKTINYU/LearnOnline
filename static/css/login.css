@@ -15,7 +15,7 @@ a:hover{
     background:#fff;
 }
 .bg-box{
-    background:url(../images/login-bg.png) no-repeat center center;
+    background:url(../images/newbackground.jpg) no-repeat center center;
 }
 .header-box{
     width:1190px;
@@ -57,7 +57,7 @@ a:hover{
     margin-bottom:15px;
     padding-top:32px;
     padding-left:190px;
-    background:url(../images/logo.png) no-repeat 0 center;
+    background:url(../images/newlogo.png) no-repeat 0 center;
 }
 .index-logo{
     position:absolute;
@@ -80,7 +80,7 @@ a:hover{
     line-height:20px;
     margin-top:48px;
     padding-left:20px;
-    color:#fff;
+    color:blue;
     background:url(../images/homepage.png) no-repeat 0 top;
 }
 .slide{

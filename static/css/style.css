@@ -1844,7 +1844,7 @@ textarea:focus {
     width: 96px;
     height: 30px;
     line-height: 30px;
-    color: #fff;
+    color:black;
     text-align: center;
     position: absolute;
     left: 50%;
@@ -1857,7 +1857,7 @@ textarea:focus {
     position: absolute;
     top: 70px;
     width: 100%;
-    color: #fff;
+    color:#b5b9bc;
     font-size: 30px;
     line-height: 40px;
 }
@@ -3125,7 +3125,7 @@ footer .footer .line {
 }
 
 .groupPurchase_detail .toppro .right .pic {
-    width: 150px;
+    width: 80px;
     height: 80px;
     margin: 20px auto;
     border: 1px solid #eaeaea;

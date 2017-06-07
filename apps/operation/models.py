@@ -36,13 +36,13 @@ class CourseComments(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return self.name
+        return self.comments
 
 
 class UserFavorite(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name=u"用户")
     fav_id = models.IntegerField(default=0, verbose_name=u"数据ID")
-    fav_type = models.IntegerField(choices=((1, "课程"), (2, "课程机构"), (3, "讲师")), default=1, verbose_name=u"收藏类型 ")
+    fav_type = models.IntegerField(choices=((1, "课程"), (2, "课程机构"), (3, "讲师")), default=2, verbose_name=u"收藏类型 ")
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
 
     class Meta:
@@ -50,7 +50,7 @@ class UserFavorite(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return self.name
+        return self.fav_id
 
 
 class UserMessage(models.Model):
@@ -64,7 +64,7 @@ class UserMessage(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return self.name
+        return self.message
 
 
 class UserCourse(models.Model):
@@ -77,4 +77,4 @@ class UserCourse(models.Model):
         verbose_name_plural = verbose_name
 
     def __unicode__(self):
-        return self.name
+        return self.course

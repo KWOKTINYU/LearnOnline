@@ -42,6 +42,10 @@ class CourseOrg(models.Model):
         # 获取课程机构教师数量
         return self.teacher_set.all().count()
 
+    def get_course_nums(self):
+        # 获取课程机构教师数量
+        return self.course_set.all().count()
+
     def __unicode__(self):
         return self.name
 

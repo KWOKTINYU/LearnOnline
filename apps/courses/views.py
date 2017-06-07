@@ -90,13 +90,13 @@ class CourseDetailView(View):
         course.save()
 
         has_fav_course = False
-        has_fav_org = False
+        has_fav_teacher = False
 
         if request.user.is_authenticated():
             if UserFavorite.objects.filter(user=request.user, fav_id=course.id, fav_type=1):
                 has_fav_course = True
-            if UserFavorite.objects.filter(user=request.user, fav_id=course.course_org.id, fav_type=2):
-                has_fav_org = True
+            if UserFavorite.objects.filter(user=request.user, fav_id=course.teacher.id, fav_type=3):
+                has_fav_teacher = True
 
         tag = course.tag
         if tag:
@@ -108,7 +108,7 @@ class CourseDetailView(View):
             "course": course,
             "relate_courses": relate_courses,
             "has_fav_course": has_fav_course,
-            "has_fav_org": has_fav_org
+            "has_fav_teacher": has_fav_teacher
         })
 
 
@@ -158,12 +158,11 @@ class AddCommentView(View):
     def post(self, request):
         # 判断用户登录状态
         if not request.user.is_authenticated():
-            return HttpResponse('{"status": "fail", "msg": u"用户未登录"}', content_type='application/json')
+            return HttpResponse('{"status": "fail", "msg": "用户未登录"}', content_type='application/json')
 
         course_id = request.POST.get('course_id', 0)
         comments = request.POST.get('comments', '')
 
-        res = {}
         if course_id > 0 and comments:
             course_comments = CourseComments()
             # get 和 filter 区别

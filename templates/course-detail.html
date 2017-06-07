@@ -55,16 +55,16 @@
 				    </div>
                     <div class="right">
                         <div class="head">
-                            <h1>授课机构</h1>
+                            <h1>授课教师</h1>
                             <p>世界名校，课程权威</p>
                         </div>
                         <div class="pic">
-                            <a href="{% url 'org:org_home' course.course_org.id %}">
-                                <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.course_org.image }}"/>
+                            <a href="{% url 'org:teacher_detail' course.teacher.id %}">
+                                <img width="80px" height="80px" style="margin-left: 35px" src="{{ MEDIA_URL }}{{ course.teacher.image }}"/>
                             </a>
                         </div>
-                            <a href="{% url 'org:org_home' course.course_org.id %}">
-                                <h2 class="center" title="{{ course.course_org.name }}">{{ course.course_org.name }}</h2>
+                            <a href="{% url 'org:teacher_detail' course.teacher.id %}">
+                                <h2 class="center" title="{{ course.teacher.name }}">{{ course.teacher.name }}</h2>
                             </a>
                         <div class="btn  notlogin" data-favid="14" id="jsRightBtn">
                             {% if has_fav_org %}已收藏{% else %}收藏{% endif %}
@@ -72,14 +72,11 @@
                         <div class="clear">
                             <ul>
                                 <li>
-                                    <span>课 &nbsp;程&nbsp; 数：{{ course.course_org.course_nums }}</span>
+                                    <span>课 &nbsp;程&nbsp; 数：{{ course.teacher.get_course_nums }}</span>
                                 </li>
-                                <li>
-                                    <span>教 &nbsp;师&nbsp; 数：{{ course.course_org.get_teacher_nums }}</span>
-                                </li>
-                                <li>所在地区：{{ course.course_org.address }}</li>
+                                <li>所属机构：{{ course.teacher.org.name }}</li>
                                 <li>认&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;证&nbsp;:
-                                    <img title="金牌机构", src="{% static 'images/gold.png' %}"/>
+                                    <img title="金牌讲师", src="{% static 'images/authentication.png' %}"/>
                                 </li>
                             </ul>
                         </div>
@@ -116,7 +113,7 @@
                             <dl>
                                 <dt>
                                     <a target="_blank" href="{% url 'course:course_detail' relate_course.id %}">
-                                        <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ relate_course.image }}"/>
+                                        <img width="220" height="150" class="scrollLoading" src="{{ MEDIA_URL }}{{ relate_course.image }}"/>
                                     </a>
                                 </dt>
                                 <dd>
@@ -166,7 +163,7 @@
         });
 
         $('.jsRightBtn').on('click', function (){
-            add_fav($(this), {{ course.course_org.id }}, 2);
+            add_fav($(this), {{ course.teacher.id }}, 3);
         });
     </script>
 {% endblock %}

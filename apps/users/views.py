@@ -97,7 +97,7 @@ class LoginView(View):
                     login(request, user)
                     return HttpResponseRedirect(reverse("index"))
                 else:
-                    return render(request, "login.html", {"msg": "用户名未激活", "login_form": login_form})
+                    return render(request, "login.html", {"msg": "用户未激活", "login_form": login_form})
             else:
                 return render(request, "login.html", {"msg":"用户名或密码错误", "login_form": login_form})
         else:
@@ -179,7 +179,7 @@ class UploadImageView(LoginRequiredMixin, View):
             return HttpResponse('{"status":"fail"}', content_type='application/json')
 
 
-class UpdatePwdView(View):
+class UpdatePwdView(LoginRequiredMixin, View):
     # 修改用户密码（用户登录状态,不需要email验证）
     def post(self, request):
         modify_form = ModifyPwdForm(request.POST)
@@ -227,8 +227,18 @@ class MyCourseView(LoginRequiredMixin, View):
     def get(self, request):
         current_page = "mycourse"
         user_courses = UserCourse.objects.filter(user=request.user)
+
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(user_courses, 2, request=request)
+
+        courses = p.page(page)
+
         return render(request, "usercenter-mycourse.html", {
-            "user_courses": user_courses,
+            "user_courses": courses,
             "current_page": current_page
         })
 

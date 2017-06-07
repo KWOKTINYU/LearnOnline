@@ -20,7 +20,7 @@
 		<div  class="header2 header">
             <div class="top">
                 <div class="wp">
-                    <div class="fl"><p>服务电话：<b>33333333</b></p></div>
+                    <div class="fl"><p>服务电话：<b>*********</b></p></div>
                     {% if request.user.is_authenticated %}
                         <div class="personal">
                             <dl class="user fr">
@@ -54,18 +54,13 @@
 
     <div class="middle companyheader">
         <div class="wp">
-            <img class="fl" style="width: 112px;height: 103px" src="{{ MEDIA_URL }}{{ course_org.image }}"/>
+            <img class="fl" style="width: 120px;height: 100px" src="{{ MEDIA_URL }}{{ course_org.image }}"/>
             <div class="head fl">
-                <h1>
-                    慕课网
+                <h1 style="margin-top:32px">
+                    {{ course_org.name }}
                     <img src="{% static 'images/authentication.png' %}"/>
                     <img src="{% static 'images/gold.png' %}"/>
                 </h1>
-                <p class="fl">
-                    <span class="fl" style="margin-top:8px;color:#848484;">推荐指数： </span>
-                    <span class="precision company-credit" data-star-scope="5.0"></span>
-                    <span class="key">5.0</span>
-                </p>
             </div>
             <div class="btn fr collectionbtn  notlogin
                  "data-favid="22" data-fav-type="1">

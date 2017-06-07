@@ -74,7 +74,7 @@ class AddUserAskView(View):
         userask_form = UserAskForm(request.POST)
         if userask_form.is_valid():
             userask_form.save(commit=True)
-            return HttpResponse("{'status': 'success', 'msg': '添加成功'}", content_type='application/json')
+            return HttpResponse('{"status": "success", "msg": "添加成功"}', content_type='application/json')
         else:
             return HttpResponse('{"status": "fail", "msg": "添加出错"}', content_type='application/json')
 
@@ -111,8 +111,18 @@ class OrgCourseView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
                 has_fav = True
         all_courses = course_org.course_set.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_courses, 4, request=request)
+
+        courses = p.page(page)
+
         return render(request, 'org-detail-course.html', {
-            'all_courses': all_courses,
+            'all_courses': courses,
             'course_org': course_org,
             'current_page': current_page,
             'has_fav': has_fav
@@ -147,8 +157,18 @@ class OrgTeacherView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
                 has_fav = True
         all_teachers = course_org.teacher_set.all()
+
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_teachers, 2, request=request)
+
+        teachers = p.page(page)
+
         return render(request, 'org-detail-teachers.html', {
-            'all_teachers': all_teachers,
+            'all_teachers': teachers,
             'course_org': course_org,
             'current_page': current_page,
             'has_fav': has_fav
@@ -243,8 +263,11 @@ class TeacherListView(View):
 
         teachers = p.page(page)
 
+        teacher_nums = all_teachers.count()
+
         return render(request, "teachers-list.html", {
             "all_teachers": teachers,
+            "teacher_nums": teacher_nums,
             "sorted_teacher": sorted_teacher,
             "sort": sort
         })
@@ -264,7 +287,6 @@ class TeacherDetailView(View):
         has_org_faved = False
         if UserFavorite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
             has_org_faved = True
-
 
         sorted_teacher = Teacher.objects.all().order_by("-click_nums")[:3]
 
